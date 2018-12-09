@@ -24,7 +24,6 @@ class BookController extends AbstractController
             ->add('save', SubmitType::class, array('label' => 'Add book'))
             ->getForm();
 
-
-        return $this->render('book/book.html.twig', array('user' => 'KO-KO-KO'));
+        return $this->render('book/book.html.twig', array('form_book' => $form->createView()));
     }
 }
