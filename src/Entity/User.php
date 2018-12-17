@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -56,6 +57,14 @@ class User
     private $avatar;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Post", inversedBy="users")
+     * @ORM\JoinTable(name="user_post")
+     */
+    private $posts;
+
+    /**
      * @ORM\Column(name="created_at", type="datetime")
      * @Gedmo\Timestampable(on="create")
      */
@@ -66,6 +75,11 @@ class User
      * @Gedmo\Timestampable(on="update")
      */
     private $updated_at;
+
+    public function __construct()
+    {
+        $this->posts = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -169,5 +183,30 @@ class User
     public function getCreatedAt()
     {
         return $this->created_at;
+    }
+
+    /**
+     * @param Post $post
+     */
+    public function addTag(Post $post):void
+    {
+        $this->posts[] = $post;
+    }
+
+    /**
+     * @return ArrayCollection|Post[]
+     */
+    public function getTags():ArrayCollection
+    {
+        return $this->posts;
+    }
+
+    /**
+     * @param Post $post
+     * @return bool
+     */
+    public function removeTag(Post $post): bool
+    {
+        return $this->posts->removeElement($post);
     }
 }

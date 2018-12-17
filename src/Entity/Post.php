@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Table(name="users")
+ * @ORM\Table(name="posts")
  * @ORM\Entity(repositoryClass="")
  */
 class Post
@@ -45,6 +46,27 @@ class Post
      * @Gedmo\Timestampable(on="update")
      */
     private $updated_at;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="posts")
+     */
+    private $users;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Category", mappedBy="posts")
+     */
+    private $category;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="book")
+     */
+    private $comments;
 
     /**
      * @return int
@@ -100,5 +122,37 @@ class Post
     public function getUpdatedAt()
     {
         return $this->updated_at;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getUsers(): ArrayCollection
+    {
+        return $this->users;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getCategory(): ArrayCollection
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param Comment $comment
+     */
+    public function addComment(Comment $comment):void
+    {
+        $this->comments[] = $comment;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getComments(): ArrayCollection
+    {
+        return $this->comments;
     }
 }

@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Table(name="users")
+ * @ORM\Table(name="comments")
  * @ORM\Entity(repositoryClass="")
  */
 class Comment
@@ -28,10 +28,23 @@ class Comment
     private $comment;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="author_id", type="integer")
+     */
+    private $author;
+
+    /**
      * @ORM\Column(name="created_at", type="datetime")
      * @Gedmo\Timestampable(on="create")
      */
     private $created_at;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
+     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
+     */
+    private $post;
 
     /**
      * @return int
@@ -63,5 +76,21 @@ class Comment
     public function getCreatedAt()
     {
         return $this->created_at;
+    }
+
+    /**
+     * @param int $author
+     */
+    public function setAuthor(int $author): void
+    {
+        $this->author = $author;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAuthor(): int
+    {
+        return $this->author;
     }
 }
