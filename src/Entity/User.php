@@ -188,7 +188,7 @@ class User
     /**
      * @param Post $post
      */
-    public function addTag(Post $post):void
+    public function addPost(Post $post):void
     {
         $this->posts[] = $post;
     }
@@ -196,7 +196,7 @@ class User
     /**
      * @return ArrayCollection|Post[]
      */
-    public function getTags():ArrayCollection
+    public function getPosts():ArrayCollection
     {
         return $this->posts;
     }
@@ -205,7 +205,7 @@ class User
      * @param Post $post
      * @return bool
      */
-    public function removeTag(Post $post): bool
+    public function removePost(Post $post): bool
     {
         return $this->posts->removeElement($post);
     }
