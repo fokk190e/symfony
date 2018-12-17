@@ -7,7 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Table(name="comments")
- * @ORM\Entity(repositoryClass="")
+ * @ORM\Entity
  */
 class Comment
 {

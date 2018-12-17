@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Table(name="users")
- * @ORM\Entity(repositoryClass="")
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
 class User
 {
