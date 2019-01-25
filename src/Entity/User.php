@@ -209,4 +209,34 @@ class User
     {
         return $this->posts->removeElement($post);
     }
+
+    public function getRoles(): array
+    {
+        return [$this->role];
+    }
+
+    public function eraseCredentials()
+    {}
+
+    public function getSalt(){}
+
+    public function serialize()
+    {
+        return serialize([
+            $this->id,
+            $this->username,
+            $this->email,
+            $this->password,
+        ]);
+    }
+
+    public function unserialize($string)
+    {
+        list(
+            $this->id,
+            $this->username,
+            $this->email,
+            $this->password,
+            ) = unserialize($string, ['allowed_classes' => false]);
+    }
 }
